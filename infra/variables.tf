@@ -4,8 +4,8 @@ variable "region" {
   description = "value of the region where the resources will be created"
 }
 
-# variable "environments" {
-#   type = any
+variable "environments" {
+  type = any
 
-#   description = "The environment configuration"
-# }
+  description = "The environment configuration"
+}

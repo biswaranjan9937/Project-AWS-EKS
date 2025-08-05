@@ -5,6 +5,10 @@ resource "aws_instance" "poc-instance" {
   key_name                    = aws_key_pair.public-key.key_name
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.jenkins-sg.id]
+  root_block_device {
+    volume_size = 16    # 👈 Disk size in GB
+    volume_type = "gp3" # (optional) gp2, gp3, io1, etc.
+  }
 
   tags = {
     Name = "poc-instance"
@@ -27,6 +31,8 @@ resource "aws_instance" "poc-instance" {
       "sudo apt install -y jenkins",
       "sudo systemctl start jenkins",
       "sudo apt install -y docker.io",
+      "sudo usermod -aG docker ubuntu",
+      "sudo usermod -aG docker jenkins"
     ]
   }
 }

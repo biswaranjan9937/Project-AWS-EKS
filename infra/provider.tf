@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket         = "poc-s3-bucket-statefile"
-    key            = "vpc.tfstate"
+    key            = "poc-terraform.tfstate"
     region         = "ap-south-1"
     dynamodb_table = "lock-file"
   }
@@ -26,6 +26,9 @@ terraform {
 provider "aws" {
   region = var.region
   #allowed_account_ids = [434605749312]
+  default_tags {
+    tags = local.default_tags
+  }
 }
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint
